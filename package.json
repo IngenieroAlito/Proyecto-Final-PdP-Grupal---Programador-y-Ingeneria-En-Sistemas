@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "readline-sync": "^1.4.10",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@types/readline-sync": "^1.4.8",
+    "@types/uuid": "^11.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

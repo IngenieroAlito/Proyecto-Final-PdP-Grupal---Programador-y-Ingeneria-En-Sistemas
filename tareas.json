@@ -1,0 +1,32 @@
+[
+  {
+    "ID": "93f0b03a-917d-4ae8-82ae-dca09c6f4795",
+    "Titulo": "Prueba",
+    "Descripcion": "",
+    "Estado": "pendiente",
+    "Creacion": "2025-12-02T05:20:32.594Z",
+    "UltimaEdicion": "2025-12-02T05:21:12.814Z",
+    "Vencimiento": "",
+    "Dificultad": "dificil"
+  },
+  {
+    "ID": "552719b5-aa6f-467e-94ac-84ef7dafbada",
+    "Titulo": "PruebaDos",
+    "Descripcion": "",
+    "Estado": "pendiente",
+    "Creacion": "2025-12-02T06:31:18.135Z",
+    "UltimaEdicion": "2025-12-02T06:31:18.135Z",
+    "Vencimiento": "2025-11-02",
+    "Dificultad": "facil"
+  },
+  {
+    "ID": "a2139db4-e69d-4190-9d5b-318ac5905b29",
+    "Titulo": "Prueba10",
+    "Descripcion": "Tengo mucho sueño",
+    "Estado": "terminada",
+    "Creacion": "2025-12-02T06:46:56.075Z",
+    "UltimaEdicion": "2025-12-02T06:47:31.496Z",
+    "Vencimiento": "",
+    "Dificultad": "dificil"
+  }
+]
