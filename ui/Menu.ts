@@ -66,6 +66,7 @@ export class Menu {
         case 3: {
           const titulo = readlineSync.question("Titulo: ");
           const datos = this.leerDatosDeTarea();
+          try {
           const nueva = new Tarea(
             titulo,
             datos.Descripcion,
@@ -75,20 +76,32 @@ export class Menu {
           );
           this.gestor.agregar(nueva);
           console.log("Tarea agregada!");
-          break;
+          } catch (e: any) {
+        console.log(`Error: ${e.message}`);
+        }
+        break;
         }
         case 4: {
-          const titulo = readlineSync.question("Titulo a editar: ");
-          const cambios = this.leerDatosDeTarea();
-          this.gestor.editar(titulo, cambios);
-          console.log("Tarea editada!");
-          break;
+        const titulo = readlineSync.question("Titulo a editar: ");
+        const t = this.gestor.buscarPorTituloExacto(titulo);
+        if (!t) {
+        console.log("No se encontró ninguna tarea con ese título");
+        break;
+        }
+        const cambios = this.leerDatosDeTarea();
+        try {
+        const editada = this.gestor.editar(titulo, cambios);
+        console.log(editada ? "Tarea editada!" : "No se pudo editar la tarea");
+        } catch (e: any) {
+        console.log(`Error: ${e.message}`);
+        }
+        break;
         }
         case 5: {
-          const titulo = readlineSync.question("Titulo a eliminar: ");
-          this.gestor.eliminarPorTitulo(titulo);
-          console.log("Tarea eliminada!");
-          break;
+        const titulo = readlineSync.question("Titulo a eliminar: ");
+        const eliminada = this.gestor.eliminarPorTitulo(titulo);
+        console.log(eliminada ? "Tarea eliminada!" : "No se encontró ninguna tarea con ese título");
+        break;
         }
         case 6:
           this.mostrarTareas(this.gestor.tareasVencidas());
@@ -123,6 +136,10 @@ export class Menu {
           break;
         default:
           console.log("Opcion invalida");
+      }
+    }
+  }
+}
       }
     }
   }
