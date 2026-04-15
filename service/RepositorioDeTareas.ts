@@ -18,8 +18,8 @@ export class RepositorioTareas {
   public leer(): Tarea[] {
     try {
       if (!fs.existsSync(this.ruta)) return [];
-      const raw = fs.readFileSync(this.ruta, "utf8");
-      const data = JSON.parse(raw) as any[];
+      const enBruto2 = fs.readFileSync(this.ruta, "utf8");
+      const data = JSON.parse(enBruto2) as any[];
       return data.map(
         (p) => new Tarea(
           p.Titulo,
