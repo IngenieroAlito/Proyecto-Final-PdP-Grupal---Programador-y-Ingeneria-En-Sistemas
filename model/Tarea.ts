@@ -37,13 +37,14 @@ export class Tarea {
     if (!titulo || titulo.trim() === "") throw new Error("El titulo no puede estar vacio");
     if (titulo.length > 100) throw new Error("El titulo no puede superar las 100 letras");
     if (descripcion.length > 500) throw new Error("El descripcion no puede superar las 500 letras");
-    const now = new Date().toISOString();
+    if (vencimiento !== "" && isNaN(Date.parse(vencimiento))) throw new Error("La fecha de vencimiento no es valida");
+    const fechaActual = new Date().toISOString();
     this.ID = id ?? uuidv4();
     this.Titulo = titulo.trim();
     this.Descripcion = descripcion.trim();
     this.Estado = normalizarEstado(estado);
-    this.Creacion = creacion ?? now;
-    this.UltimaEdicion = ultimaEdicion ?? now;
+    this.Creacion = creacion ?? fechaActual;
+    this.UltimaEdicion = ultimaEdicion ?? fechaActual;
     this.Vencimiento = vencimiento;
     this.Dificultad = normalizarDificultad(dificultad);
   }
@@ -64,13 +65,18 @@ export class Tarea {
    * Edita los campos de la tarea, excepto ID y Creacion
    * @param cambios Campos a modificar (descripcion, estado, vencimiento, dificultad)
    */
-  public editar(cambios: Partial<Omit<Tarea, "ID" | "Creacion">>) {
-    if (cambios.Descripcion !== undefined) this.Descripcion = cambios.Descripcion;
-    if (cambios.Estado) this.Estado = normalizarEstado(cambios.Estado);
-    if (cambios.Vencimiento !== undefined) this.Vencimiento = cambios.Vencimiento;
-    if (cambios.Dificultad) this.Dificultad = normalizarDificultad(cambios.Dificultad);
-    this.UltimaEdicion = new Date().toISOString();
+public editar(cambios: Partial<Omit<Tarea, "ID" | "Creacion">>) {
+  if (cambios.Descripcion !== undefined) this.Descripcion = cambios.Descripcion;
+  if (cambios.Estado) this.Estado = normalizarEstado(cambios.Estado);
+  if (cambios.Vencimiento !== undefined) {
+    if (cambios.Vencimiento !== "" && isNaN(Date.parse(cambios.Vencimiento))) {
+      throw new Error("La fecha de vencimiento no es valida");
+    }
+    this.Vencimiento = cambios.Vencimiento;
   }
+  if (cambios.Dificultad) this.Dificultad = normalizarDificultad(cambios.Dificultad);
+  this.UltimaEdicion = new Date().toISOString();
+}
   /**
    * Verifica si la tarea esta vencida
    * @returns true si la fecha de vencimiento es menor que la fecha actual
