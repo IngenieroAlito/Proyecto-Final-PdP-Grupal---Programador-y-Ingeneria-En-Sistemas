@@ -40,14 +40,19 @@ export class GestorTareas {
   /** Agrega una tarea a la lista */
   public agregar(t: Tarea): void { this.tareas.push(t); }
   /** Elimina tareas por titulo*/
-  public eliminarPorTitulo(titulo: string): void {
-    this.tareas = this.tareas.filter((t) => t.Titulo !== titulo);
+  public eliminarPorTitulo(titulo: string): boolean {
+ const existe = this.tareas.some((t) => t.Titulo === titulo);
+  if (!existe) return false;
+  this.tareas = this.tareas.filter((t) => t.Titulo !== titulo);
+  return true;
   }
   /** Edita una tarea buscando por titulo */
-  public editar(titulo: string, cambios: Partial<Omit<Tarea, "ID" | "Creacion">>): void {
-    const t = this.tareas.find((t) => t.Titulo === titulo);
-    if (t) t.editar(cambios);
-  }
+public editar(titulo: string, cambios: Partial<Omit<Tarea, "ID" | "Creacion">>): boolean {
+  const t = this.tareas.find((t) => t.Titulo === titulo);
+  if (!t) return false;
+  t.editar(cambios);
+  return true;
+}
   /** Busca tarea por titulo exacto */
   public buscarPorTituloExacto(titulo: string): Tarea | undefined {
     return this.tareas.find((t) => t.Titulo === titulo);
